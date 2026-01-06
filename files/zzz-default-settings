@@ -6,6 +6,26 @@ if [ -d "/www/luci-static/argon" ] && [ -z "$(uci -q get luci.main.pollinterval)
     uci commit luci
 fi
 
+# ttyd
+#uci set ttyd.@ttyd[0].command='/bin/login -f root'
+#uci commit ttyd
+#/etc/init.d/ttyd restart
+
+# Set lucky
+uci set lucky.@lucky[0].enabled='0'
+uci commit lucky
+/etc/init.d/lucky restart
+
+# Set up hostname mapping
+uci add dhcp domain
+uci set "dhcp.@domain[-1].name=time.android.com"
+uci set "dhcp.@domain[-1].ip=203.107.6.88"
+uci commit dhcp
+
+
+
+
+
 #自动语言
 uci set luci.main.lang=auto
 uci commit luci
