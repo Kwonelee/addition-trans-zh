@@ -112,7 +112,8 @@ uci -q get network.globals.packet_steering > /dev/null || {
 sed -i '/coremark/d' /etc/crontabs/root
 crontab /etc/crontabs/root
 
-# init
-devices_setup
+#清除 LuCI 残留缓存
+rm -rf /tmp/luci-modulecache
+rm -f /tmp/luci-indexcache
 
 exit 0
