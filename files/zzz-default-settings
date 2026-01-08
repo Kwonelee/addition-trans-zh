@@ -78,6 +78,9 @@ uci add_list nginx._redirect2ssl.include='conf.d/*.locations'
 uci commit nginx
 /etc/init.d/nginx restart
 
+#SIP fix
+sed -i '/sip/d' /etc/modules.d/nf-nathelper-extra
+
 # docker mirror
 if [ -f /etc/config/dockerd ] && [ $(grep -c daocloud.io /etc/config/dockerd) -eq '0' ]; then
     uci add_list dockerd.globals.registry_mirrors="https://docker.m.daocloud.io"
